@@ -1,4 +1,4 @@
-##Linux-Gpio-Management using WiringPi
+#Linux-Gpio-Management using WiringPi:
 #1.Enable GPIO on Raspberry Pi:
 #2.Install WiringPi library:
 #3.Connect the LED:
