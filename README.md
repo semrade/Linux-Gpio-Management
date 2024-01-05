@@ -11,6 +11,8 @@ Open a terminal and run:
 sudo raspi-config
 ```
 Navigate to Interfacing Options -> GPIO and enable it.
+<img width="941" alt="image" src="https://github.com/semrade/Linux-Gpio-Management/assets/17770194/b2aafc67-5be1-4c27-a3fa-3408d078bde1">
+
 
 ## 2. Install WiringPi library:
 WiringPi is a C library that allows easy access to the GPIO pins on the Raspberry Pi. 
