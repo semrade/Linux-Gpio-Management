@@ -23,6 +23,22 @@ Install it using the following commands:
 sudo apt-get update
 sudo apt-get install wiringpi
 ```
+You could probably not be able to install the WiringPi package in your Raspberry Pi using the bellow command, so, you could use the manual installation by cloning and building the package.
+
+```
+git clone https://github.com/WiringPi/WiringPi.git
+cd WiringPi
+./build
+```
+
+these commands will install compile and install the needed resources and install them in the system.
+You could delete the cloned package if you want.
+
+To make sure that the package is installed in your system, you could type the following command
+
+```
+gpio -v
+```
 
 ## 3. Connect the LED:
 
