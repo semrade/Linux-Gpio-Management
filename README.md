@@ -24,12 +24,12 @@ Navigate to Interfacing Options -> GPIO and enable it.
 
 # Linux-Gpio-Management using Linux files management
 
-# 1.Create a systemd Service File:
+## 1.Create a systemd Service File:
 
-# 2.Enable and Start the Service:
+## 2.Enable and Start the Service:
 
-# 3.Check the Status:
+## 3.Check the Status:
 
-# 4.Reboot and Test:
+## 4.Reboot and Test:
 
-# 5. 
+## 5. 
