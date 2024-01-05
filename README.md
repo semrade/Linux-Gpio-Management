@@ -2,7 +2,9 @@
 
 ## 1.Enable GPIO on Raspberry Pi:
 Ensure that the GPIO interface is enabled on your Raspberry Pi.
+
 You can do this using the raspi-config command.
+
 Open a terminal and run:
 
 ```
