@@ -53,7 +53,7 @@ Create a new C++ file, for example, led_toggle.cpp, and use the following code:
 #include <iostream>
 #include <wiringPi.h>
 
-const int ledPin = 17; // GPIO pin 17
+const int ledPin = 0; // GPIO pin 17
 
 int main() {
     if (wiringPiSetup() == -1) {
