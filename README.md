@@ -145,7 +145,7 @@ sudo reboot
 ```
 
 After the reboot, the LED should start blinking as the service gets automatically started.
-## 5. 
+## 5. Note
 
 -    Make sure to replace /path/to/your/compiled/executable with the actual path to your compiled led_toggle executable.
 
@@ -158,3 +158,81 @@ sudo systemctl daemon-reload
 ```
 
 Now, your LED toggle program should run as a service and blink the LED continuously on Raspberry Pi startup.
+
+
+# Interact with GPIO pins on a Raspberry Pi without using a library like WiringPi
+If you want to interact with GPIO pins on a Raspberry Pi without using a library like WiringPi, you can directly access the /sys/class/gpio interface provided by the Linux kernel. 
+
+This involves writing to and reading from files in this directory to control GPIO pins. 
+
+Below is a simple example using system calls and file I/O to toggle a GPIO pin.
+
+
+
+```C++
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <unistd.h>
+
+const int gpioPin = 17; // GPIO pin 17
+
+void exportGPIO() {
+    std::ofstream exportFile("/sys/class/gpio/export");
+    exportFile << gpioPin;
+    exportFile.close();
+}
+
+void unexportGPIO() {
+    std::ofstream unexportFile("/sys/class/gpio/unexport");
+    unexportFile << gpioPin;
+    unexportFile.close();
+}
+
+void setDirection(bool isOutput) {
+    std::string directionPath = "/sys/class/gpio/gpio" + std::to_string(gpioPin) + "/direction";
+    std::ofstream directionFile(directionPath);
+    directionFile << (isOutput ? "out" : "in");
+    directionFile.close();
+}
+
+void writeGPIO(bool value) {
+    std::string valuePath = "/sys/class/gpio/gpio" + std::to_string(gpioPin) + "/value";
+    std::ofstream valueFile(valuePath);
+    valueFile << value;
+    valueFile.close();
+}
+
+int main() {
+    // Export GPIO pin
+    exportGPIO();
+
+    // Set GPIO pin as output
+    setDirection(true);
+
+    while (true) {
+        // Turn ON the LED
+        writeGPIO(true);
+        usleep(500000); // Sleep for 0.5 seconds
+
+        // Turn OFF the LED
+        writeGPIO(false);
+        usleep(500000); // Sleep for 0.5 seconds
+    }
+
+    // Unexport GPIO pin
+    unexportGPIO();
+
+    return 0;
+}
+
+```
+
+In this example:
+
+*   `exportGPIO` writes the GPIO pin number to the `/sys/class/gpio/export` file to make it accessible.
+*   `unexportGPIO` writes the GPIO pin number to the `/sys/class/gpio/unexport` file to release it.
+*   `setDirection` writes "out" or "in" to the `/sys/class/gpio/gpio<Pin>/direction` file to set the pin as an output or input.
+*   `writeGPIO` writes 0 or 1 to the `/sys/class/gpio/gpio<Pin>/value` file to set the pin's output state.
+
+Compile and run this program similarly to the previous steps. Note that this method involves more manual handling of GPIO compared to using a library like WiringPi, but it gives you more direct control over the hardware.
