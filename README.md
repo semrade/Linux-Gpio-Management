@@ -95,10 +95,66 @@ The LED connected to GPIO pin 17 should start toggling on and off.
 
 ## 1. Create a systemd Service File:
 
+Create a new file named `led_toggle.service` in the /etc/systemd/system/ directory:
+
+```
+sudo nano /etc/systemd/system/led_toggle.service
+```
+
+Add the following content to the file:
+
+```
+[Unit]
+Description=LED Toggle Service
+After=network.target
+
+[Service]
+ExecStart=/path/to/your/compiled/executable  # Update with the actual path to your compiled executable
+Restart=always
+User=pi  # Update with your Raspberry Pi username
+
+[Install]
+WantedBy=multi-user.target
+```
+
 ## 2. Enable and Start the Service:
+
+Now, enable the service to start at boot and start it:
+
+```
+sudo systemctl enable led_toggle.service
+sudo systemctl start led_toggle.service
+```
+
 
 ## 3. Check the Status:
 
+You can check the status of your service to ensure it's running without any errors:
+
+```
+sudo systemctl status led_toggle.service
+```
+If there are any issues, the status command will provide information about what went wrong.
+
 ## 4. Reboot and Test:
 
+Reboot your Raspberry Pi to ensure the service starts automatically:
+
+```
+sudo reboot
+```
+
+After the reboot, the LED should start blinking as the service gets automatically started.
 ## 5. 
+
+-    Make sure to replace /path/to/your/compiled/executable with the actual path to your compiled led_toggle executable.
+
+-    Ensure that the User field in the service file matches your Raspberry Pi username.
+
+If you make changes to the service file, reload the systemd manager:
+
+```
+sudo systemctl daemon-reload
+```
+
+Now, your LED toggle program should run as a service and blink the LED continuously on Raspberry Pi startup.
